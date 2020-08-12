@@ -30,8 +30,8 @@ class App extends React.Component {
                     album: 'We are the fancy ones'
                 }
             ],
-            playListName: 'My Playlist',
-            playListTracks: [
+            playlistName: 'My Playlist',
+            playlistTracks: [
                 {
                     id:'P1',
                     name: 'Playlist Fun Track',
@@ -52,7 +52,25 @@ class App extends React.Component {
                 }
             ],
         }
+        this.addTrack = this.addTrack.bind(this);
+        this.removeTrack = this.removeTrack.bind(this);
 
+    }
+
+    addTrack(track) {
+        if(!this.state.playlistTracks.some(t => track.id === t.id)) {
+            console.log('Adding track to playlist state via app', track);
+            this.setState({playlistTracks: this.state.playlistTracks.concat(track)});
+        } else {
+            console.log('The track is already in the playlist');
+        }
+    }
+
+    removeTrack(track) {
+        console.log('Removing track from playlist state via app', track);
+        this.setState({
+            playlistTracks: this.state.playlistTracks.filter(t => !(track.id === t.id))
+        });
     }
 
     render() {
@@ -62,8 +80,8 @@ class App extends React.Component {
                 <div className="App">
                     <SearchBar />
                     <div className="App-playlist">
-                        <SearchResults results={this.state.searchResults} />
-                        <PlayList name={this.state.playListName} tracks={this.state.playListTracks} />
+                        <SearchResults results={this.state.searchResults} onAdd={this.addTrack} />
+                        <PlayList name={this.state.playlistName} tracks={this.state.playlistTracks} onRemove={this.removeTrack} />
                     </div>
                 </div>
             </div>
