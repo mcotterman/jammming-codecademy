@@ -29,7 +29,28 @@ class App extends React.Component {
                     artist: 'Fancy lads',
                     album: 'We are the fancy ones'
                 }
-            ]
+            ],
+            playListName: 'My Playlist',
+            playListTracks: [
+                {
+                    id:'P1',
+                    name: 'Playlist Fun Track',
+                    artist: 'Fun time jaboree',
+                    album: 'All that fun'
+                },
+                {
+                    id:'P2',
+                    name: 'Playlist Not Fun Track',
+                    artist: 'Not Fun time jaboree',
+                    album: 'All that lame'
+                },
+                {
+                    id:'P3',
+                    name: 'Playlist Fancy Track',
+                    artist: 'Fancy lads',
+                    album: 'We are the fancy ones'
+                }
+            ],
         }
 
     }
@@ -42,7 +63,7 @@ class App extends React.Component {
                     <SearchBar />
                     <div className="App-playlist">
                         <SearchResults results={this.state.searchResults} />
-                        <PlayList />
+                        <PlayList name={this.state.playListName} tracks={this.state.playListTracks} />
                     </div>
                 </div>
             </div>
