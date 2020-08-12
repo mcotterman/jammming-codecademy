@@ -15,19 +15,22 @@ class App extends React.Component {
                     id:'S1',
                     name: 'Search Fun Track',
                     artist: 'Fun time jaboree',
-                    album: 'All that fun'
+                    album: 'All that fun',
+                    uri: 'https://blah/s1'
                 },
                 {
                     id:'S2',
                     name: 'Search Not Fun Track',
                     artist: 'Not Fun time jaboree',
-                    album: 'All that lame'
+                    album: 'All that lame',
+                    uri: 'https://blah/s2'
                 },
                 {
                     id:'S3',
                     name: 'Search Fancy Track',
                     artist: 'Fancy lads',
-                    album: 'We are the fancy ones'
+                    album: 'We are the fancy ones',
+                    uri: 'https://blah/s3'
                 }
             ],
             playlistName: 'New Playlist',
@@ -36,25 +39,29 @@ class App extends React.Component {
                     id:'P1',
                     name: 'Playlist Fun Track',
                     artist: 'Fun time jaboree',
-                    album: 'All that fun'
+                    album: 'All that fun',
+                    uri: 'https://blah/p1'
                 },
                 {
                     id:'P2',
                     name: 'Playlist Not Fun Track',
                     artist: 'Not Fun time jaboree',
-                    album: 'All that lame'
+                    album: 'All that lame',
+                    uri: 'https://blah/p2'
                 },
                 {
                     id:'P3',
                     name: 'Playlist Fancy Track',
                     artist: 'Fancy lads',
-                    album: 'We are the fancy ones'
+                    album: 'We are the fancy ones',
+                    uri: 'https://blah/p3'
                 }
             ],
         }
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
+        this.savePlaylist = this.savePlaylist.bind(this);
 
     }
 
@@ -78,6 +85,15 @@ class App extends React.Component {
         if(name != this.state.playlistName) this.setState({playlistName: name});
     }
 
+    savePlaylist() {
+        const playlist = {
+            playlistName: this.state.playlistName,
+            trackURIs: this.state.playlistTracks.map(t => t.uri)
+        }
+
+        console.log('Saving playlist', playlist);
+    }
+
     render() {
         return (
             <div>
@@ -86,7 +102,7 @@ class App extends React.Component {
                     <SearchBar />
                     <div className="App-playlist">
                         <SearchResults results={this.state.searchResults} onAdd={this.addTrack} />
-                        <PlayList name={this.state.playlistName} tracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} />
+                        <PlayList name={this.state.playlistName} tracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
                     </div>
                 </div>
             </div>
