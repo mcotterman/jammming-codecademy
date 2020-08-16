@@ -3,8 +3,9 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import PlayList from '../PlayList/PlayList';
+import Spotify from '../../util/Spotify';
 
-
+console.log(process.env);
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -14,21 +15,21 @@ class App extends React.Component {
                 {
                     id:'S1',
                     name: 'Search Fun Track',
-                    artist: 'Fun time jaboree',
+                    artists: [{name: 'Fartytown jambory'}],
                     album: 'All that fun',
                     uri: 'https://blah/s1'
                 },
                 {
                     id:'S2',
                     name: 'Search Not Fun Track',
-                    artist: 'Not Fun time jaboree',
+                    artists: [{name: 'No fun fellas'}],
                     album: 'All that lame',
                     uri: 'https://blah/s2'
                 },
                 {
                     id:'S3',
                     name: 'Search Fancy Track',
-                    artist: 'Fancy lads',
+                    artists: [{name: 'Fancy lads'}],
                     album: 'We are the fancy ones',
                     uri: 'https://blah/s3'
                 }
@@ -38,21 +39,21 @@ class App extends React.Component {
                 {
                     id:'P1',
                     name: 'Playlist Fun Track',
-                    artist: 'Fun time jaboree',
+                    artists: [{name: 'Fartytown jambory'}],
                     album: 'All that fun',
                     uri: 'https://blah/p1'
                 },
                 {
                     id:'P2',
                     name: 'Playlist Not Fun Track',
-                    artist: 'Not Fun time jaboree',
+                    artists: [{name: 'No fun fellas'}],
                     album: 'All that lame',
                     uri: 'https://blah/p2'
                 },
                 {
                     id:'P3',
                     name: 'Playlist Fancy Track',
-                    artist: 'Fancy lads',
+                    artists: [{name: 'Fancy lads'}],
                     album: 'We are the fancy ones',
                     uri: 'https://blah/p3'
                 }
@@ -83,7 +84,7 @@ class App extends React.Component {
     }
 
     updatePlaylistName(name) {
-        if(name != this.state.playlistName) this.setState({playlistName: name});
+        if(name !== this.state.playlistName) this.setState({playlistName: name});
     }
 
     savePlaylist() {
@@ -96,8 +97,11 @@ class App extends React.Component {
     }
 
     search(term) {
-        console.log(term);
-
+        console.log(`Searching for ${term}`);
+        Spotify.search(term).then(tracks => {
+            console.log('In App.js then', typeof(tracks), Array.isArray(tracks), tracks);
+            this.setState({searchResults: tracks});
+        });
     }
 
     render() {
