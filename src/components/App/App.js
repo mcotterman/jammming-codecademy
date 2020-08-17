@@ -11,53 +11,9 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            searchResults: [
-                {
-                    id:'S1',
-                    name: 'Search Fun Track',
-                    artists: [{name: 'Fartytown jambory'}],
-                    album: 'All that fun',
-                    uri: 'https://blah/s1'
-                },
-                {
-                    id:'S2',
-                    name: 'Search Not Fun Track',
-                    artists: [{name: 'No fun fellas'}],
-                    album: 'All that lame',
-                    uri: 'https://blah/s2'
-                },
-                {
-                    id:'S3',
-                    name: 'Search Fancy Track',
-                    artists: [{name: 'Fancy lads'}],
-                    album: 'We are the fancy ones',
-                    uri: 'https://blah/s3'
-                }
-            ],
+            searchResults: [],
             playlistName: 'New Playlist',
-            playlistTracks: [
-                {
-                    id:'P1',
-                    name: 'Playlist Fun Track',
-                    artists: [{name: 'Fartytown jambory'}],
-                    album: 'All that fun',
-                    uri: 'https://blah/p1'
-                },
-                {
-                    id:'P2',
-                    name: 'Playlist Not Fun Track',
-                    artists: [{name: 'No fun fellas'}],
-                    album: 'All that lame',
-                    uri: 'https://blah/p2'
-                },
-                {
-                    id:'P3',
-                    name: 'Playlist Fancy Track',
-                    artists: [{name: 'Fancy lads'}],
-                    album: 'We are the fancy ones',
-                    uri: 'https://blah/p3'
-                }
-            ],
+            playlistTracks: [],
         }
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
@@ -92,8 +48,20 @@ class App extends React.Component {
             playlistName: this.state.playlistName,
             trackURIs: this.state.playlistTracks.map(t => t.uri)
         }
-
         console.log('Saving playlist', playlist);
+        Spotify.savePlaylist(this.state.playlistName, this.state.playlistTracks)
+        .then(status => {
+            if(status) {
+                console.log(`Playlist ${this.state.playlistName} created successfully!\nStarting new playlist`);
+                this.setState({
+                    playlistName: 'New Playlist',
+                    playlistTracks: []
+                });
+                document.getElementById('playlistName').value='New Playlist';
+            } else {
+                console.log('Failed to create playlist! (App.js)');
+            }
+        });
     }
 
     search(term) {
