@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 
 const user ={};
 
+// I got sick of having to get a new token every time, so added cookies for the Spotify info
 const spotifyInfo = Cookies.getJSON('spotifyInfo');
 if(typeof(spotifyInfo) != 'undefined' && typeof(spotifyInfo.apiInfo) != 'undefined'  && typeof(spotifyInfo.apiInfo.access_token) != 'undefined') {
     user.spotify = spotifyInfo;
@@ -70,7 +71,7 @@ class Spotify {
             body: JSON.stringify(body)
         })
         .then(response => {
-            if(response.ok && response.status == '201') {
+            if(response.ok && response.status === '201') {
                 console.log('Fetch response ok!', response);
                 return response.json();
             }
@@ -167,5 +168,7 @@ class Spotify {
         });
     }
 }
+
+Spotify.getUserId(); //Get connected to Spotify to avoid a weird issue with search without authorization first
 
 export default Spotify;

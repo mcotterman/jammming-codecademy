@@ -1,4 +1,21 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Jammming project
+## By: Mike Cotterman
+This is the Jammming react/Spofity API project I built as a capstone for the frontend developer section of the [web development path](https://www.codecademy.com/learn/paths/web-development).
+
+For the most part it is the project as outlines in their requirements, but I made a couple of changed:
+
+1. The Spotify client ID is stored in .env (or .env.local) instead of the the Spotify.js file
+1. The redirect URL is stored in the .env (or .env.local) file instead of the the Spotify.js file
+1. I broken out several methods in the Spotify class to reduce code duplication and complexity
+1. I use cookies to store Spotify user tokens, id, etc. Mostly I got sick of getting redirected with every update to the code.
+1. There are also several other little tweaks and changes I felt were needed
+
+If you are taking the course with [codecademy](http://ssqt.co/mQgHcuT) then have fun! If you are interested in the course feel free to use my [referal link](http://ssqt.co/mQgHcuT) to help me out!
+
+Enjoy!
+
+
+# Generic React Docs in case you need it
 
 ## Available Scripts
 
